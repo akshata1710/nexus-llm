@@ -6,7 +6,7 @@ import time
 
 from core.database import init_db
 from core.redis_client import init_redis
-from routers import auth, keys, health
+from routers import auth, keys, health, proxy
 
 
 @asynccontextmanager
@@ -52,3 +52,4 @@ async def global_exception_handler(request: Request, exc: Exception):
 app.include_router(health.router, prefix="/health", tags=["health"])
 app.include_router(auth.router, prefix="/auth", tags=["auth"])
 app.include_router(keys.router, prefix="/keys", tags=["api-keys"])
+app.include_router(proxy.router, prefix="/proxy", tags=["proxy"])
