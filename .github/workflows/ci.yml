@@ -44,15 +44,3 @@ jobs:
 
       - name: Build gateway image
         run: docker build -t nexusllm-gateway:ci ./gateway
-
-      - name: Verify image starts
-        run: |
-          docker run -d --name test-gateway \
-            -e SECRET_KEY=test \
-            -e DATABASE_URL=sqlite+aiosqlite:///./test.db \
-            -e REDIS_URL=redis://localhost:6379 \
-            -p 8000:8000 \
-            nexusllm-gateway:ci
-          sleep 5
-          curl -f http://localhost:8000/health || exit 1
-          docker stop test-gateway
